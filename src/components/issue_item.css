@@ -1,0 +1,31 @@
+.issueItem {
+    width: calc(100% - 20px);
+    border: 1px solid;
+    text-align: left;
+    padding: 2px 0
+}
+
+.issueItem.selected{
+    background-color: yellow;
+}
+
+.issueItem:hover{
+    background-color: bisque;
+}
+
+.summaryField {
+    width: calc(80% - 20px);
+    text-align: right;
+    display: inline-block;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.sPField {
+    width: 15%;
+    display: inline-block;
+    text-align: left;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+

@@ -1,0 +1,11 @@
+#DetailsDisplay{
+    float: right;
+    width: 500px;
+    padding: 5px;
+    border: gray 1px solid;
+    box-sizing: border-box;
+    height: 83vh;;
+    text-align: left;
+    font-size: 12pt;
+    overflow: auto;
+}

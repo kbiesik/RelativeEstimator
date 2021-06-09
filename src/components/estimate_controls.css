@@ -1,0 +1,16 @@
+#EstimateControls{
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    height: 4vh;
+    box-sizing: border-box;
+    background-color: #FFFDAA;
+    border-bottom: solid 1px gray;
+    min-height: 36px;
+}
+
+#EstimateControls a:visited,
+#EstimateControls a:link{
+    color: Black;
+    font-weight: bolder;
+}

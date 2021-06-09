@@ -1,0 +1,11 @@
+#ItemsList{
+    float: left;
+    width: calc(100% - 500px);
+    height: 83vh;
+    overflow: scroll;
+}
+#issueLabels
+{
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+}

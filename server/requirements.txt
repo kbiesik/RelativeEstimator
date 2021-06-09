@@ -1,0 +1,3 @@
+jira
+aiohttp
+aiohttp_cors
