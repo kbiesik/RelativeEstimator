@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Relative Estimator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Relative Estimator is a simple application that can help am agile team during the task estimation process.
+The application builds a list of referential tasks using Jira (by Atlassian) issues completed in previous sprints.
 
-## Available Scripts
+# Installation
 
-In the project directory, you can run:
+## Requirements
+* Node.js - to build web application, 
+* Python 3.6+ - to start server and generate the referential tasks list.
 
-### `npm start`
+## Browser App installation
+0. Go to root project directory and execute:
+    ```
+    npm install
+    ```
+0. After the successful installation, execute the build command:
+    ```
+    npm run build
+    ```
+0. React App has been built.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Server installation
+It's highly recommended to use some Python Environment Manager eg. venv.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+0. Go to server subdirectory
+0. Install python requirements:
+    ```
+       pip3 install -r requirements.txt
+    ```
+   
+# Configuration
+0. make copy of the `config_template.ini` file to `config.ini`
+0. open config file and enter the parameters:
+-  In the JIRA section put:
+    - jira instance host with protocol, 
+    - user and password (with access to the tasks)
+- In the FILTERS section enter:
+    - project_codes - the code names of the projects to search, 
+    - max_results - maximum number of tasks in the referential list
+    - other parameters leave unchanged 
+- Section OUTPUT leave unchanged
 
-### `npm test`
+# Start app
+0. Generate the referential issue list and call:
+    ```
+    python3 generate.py
+    ```
+   for more options call `python3 generate.py -h`
+0. Start server:
+    ```
+    python3 server.py
+    ```
+0. Open web browser page http://localhost:8080
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Development
+See [React App Development](docs/ReactAppDevelopment.md) for basic information about the web app development.
