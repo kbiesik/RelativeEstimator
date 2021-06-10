@@ -20,8 +20,8 @@ class DataProvider:
     def __explode_config(self):
         self.__logger.debug(repr(self.__config['project_codes']))
         self._projects = json.loads(self.__config['project_codes'])
-        self._sprint_regexp = self.__config['sprint_filter_regexp']
-        self._exclude_labels = json.loads(self.__config['excluded_labels'])
+        self._exclude_labels = json.loads(self.__config['exclusion_labels'])
+        self._oldest_results = self.__config['oldest_results']
         self._max_results = int(self.__config['max_results'])
 
     def get_issues(self):
@@ -55,10 +55,11 @@ class DataProvider:
                    "Sprint not in openSprints()",
                    "\"Story Points\"  is not EMPTY",
                    "status IN (Resolved, Closed)",
-                   "project IN (%s)" % (", ".join(self._projects))
+                   "project IN (%s)" % (", ".join(self._projects)),
+                   "resolved > %s" % self._oldest_results
                    ]
         if len(self._exclude_labels):
-            jql_arr.append("labels not in (%s)" % (", ".join(self._exclude_labels)))
+            jql_arr.append(" (labels not in (%s) OR labels is EMPTY)" % (", ".join(self._exclude_labels)))
         jql = " AND ".join(jql_arr) + " ORDER BY resolutiondate DESC"
         return jql
 

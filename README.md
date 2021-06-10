@@ -38,7 +38,9 @@ It's highly recommended to use some Python Environment Manager eg. venv.
 - In the FILTERS section enter:
     - project_codes - the code names of the projects to search, 
     - max_results - maximum number of tasks in the referential list
-    - other parameters leave unchanged 
+    - exclusion_labels - list of labels that exclude the issues from the referential list
+    - oldest_results - resolve date of oldest issue, 
+    negative value is expected in format -{I}d where {I} is number of days.
 - Section OUTPUT leave unchanged
 
 # Start app
