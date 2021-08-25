@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './issue_item.css';
+import TagList from "./tag_list";
 
 class IssueItem extends React.Component{
 
@@ -10,6 +11,9 @@ class IssueItem extends React.Component{
                     className={this.props.isSelected?"issueItem selected":"issueItem"}
                     onClick={() => { this.props.onSelect(this.props.issueKey)}}
                 >
+                <span className="labelsField">
+                    <TagList tags={ this.props.labels }></TagList>
+                </span>
                 <span className="summaryField">
                     {this.props.summary}
                 </span>:

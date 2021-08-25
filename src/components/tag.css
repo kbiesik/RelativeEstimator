@@ -4,3 +4,10 @@
     padding: 2px;
     background-color: aliceblue;
 }
+
+.selected_tag{
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 2px;
+    background-color: coral;
+}

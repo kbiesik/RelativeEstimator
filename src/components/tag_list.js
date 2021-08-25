@@ -10,7 +10,6 @@ function TagList(props){
 
     return (
         <div className="tags">
-            <h3>{ props.children }</h3>
             <div id="itemTags">
             {
                 props.tags.map( (item) => {

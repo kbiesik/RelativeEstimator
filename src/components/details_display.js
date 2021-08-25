@@ -14,13 +14,12 @@ class DetailsDisplay extends React.Component{
 
         let sptime = 'NA';
         if(this.props.issue.sp && this.props.issue.time){
-            sptime = (this.props.issue.sp/this.props.issue.time).toFixed(2);
+            sptime = (this.props.issue.sp/this.props.issue.time).toFixed(3);
         }
 
         return (
             <div id="DetailsDisplay">
                     <h2>{ this.props.issue.summary } ({this.props.issue.key})</h2>
-                    <TagList tags={ this.props.issue.labels }>Labels</TagList>
                     <ul>
                     <li>Story points: { this.props.issue.sp?this.props.issue.sp:"N/A" }</li>
                     <li>Time: { time }</li>

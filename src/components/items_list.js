@@ -25,6 +25,7 @@ class ItemsList extends React.Component {
                             <IssueItem
                                 key={entity.key}
                                 isSelected = {entity.key===this.props.selectedKey}
+                                labels={entity.labels}
                                 issueKey={entity.key}
                                 summary={entity.summary}
                                 sp={entity.sp}
