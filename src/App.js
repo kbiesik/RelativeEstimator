@@ -45,7 +45,7 @@ class App extends React.Component{
             .catch((error) => {
                 this.setState({
                     issues: [],
-                    issue_loading_state: "Loadidng items error! " + error
+                    issue_loading_state: "Loading items error! " + error
                 });
             });
     }

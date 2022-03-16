@@ -1,5 +1,5 @@
 .issueItem {
-    width: calc(100% - 20px);
+    width: calc(100% - 10px);
     border: 1px solid;
     text-align: left;
     padding: 2px 0
@@ -14,7 +14,7 @@
 }
 
 .summaryField {
-    width: calc(70% - 20px);
+    width: calc(60% - 5px);
     text-align: right;
     display: inline-block;
     padding: 0 10px;
@@ -22,7 +22,7 @@
 }
 
 .sPField {
-    width: 10%;
+    width: 8%;
     display: inline-block;
     text-align: left;
     padding: 0 10px;

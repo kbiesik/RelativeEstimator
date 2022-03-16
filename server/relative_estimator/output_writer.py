@@ -20,5 +20,5 @@ class JSONWriter:
 
     def write_to_file(self, issues):
         file_content = {"items": issues}
-        with open(self._file, "w") as out_file:
+        with open(self._file, "w+") as out_file:
             json.dump(file_content, out_file)

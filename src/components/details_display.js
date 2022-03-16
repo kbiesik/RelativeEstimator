@@ -23,7 +23,8 @@ class DetailsDisplay extends React.Component{
                     <ul>
                     <li>Story points: { this.props.issue.sp?this.props.issue.sp:"N/A" }</li>
                     <li>Time: { time }</li>
-                    <li>SP/h: {sptime}</li>
+                        <li>SP/h: {sptime}</li>
+                        <li>SP with time parity: { this.props.issue.sp_time_parity }</li>
                     </ul>
                 <h3>Description:</h3>
                 <div dangerouslySetInnerHTML={{__html: description}}></div>

@@ -35,7 +35,9 @@ if __name__ == '__main__':
     my_issues = sorted(issues, key=lambda k: k['sp'])
     print("%100s:\t %4s\t %5s\t %4s" % ("summary", "SP", "time", "h/SP"))
     for issue in my_issues:
-        print("%100s:\t %2.1f\t %3.2f\t %.1f" % (issue['summary'], issue['sp'], issue['time'], issue['time']/issue['sp']))
+        sp_h = issue['time']/issue['sp'] if issue['sp'] != 0 else -1
+
+        print("%100s:\t %2.1f\t %3.2f\t %.1f" % (issue['summary'], issue['sp'], issue['time'], sp_h))
 
     print("\nStatistics:")
     print("Items count: %i, oldest: %s, newest: %s" %

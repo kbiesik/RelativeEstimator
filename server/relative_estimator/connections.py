@@ -25,8 +25,11 @@ class JiraConnectionGenerator:
         try:
             conf = {
                 "server": configuration["JIRA"]["host"]
+
             }
-            jira_connection = JIRA(conf, basic_auth=(configuration["JIRA"]["user"], configuration["JIRA"]["pass"]))
+            jira_connection = JIRA(conf,
+                                   basic_auth=(configuration["JIRA"]["user"],
+                                               configuration["JIRA"]["pass"]))
             self.__logger.debug(jira_connection)
             self.__logger.debug("...OK")
         except Exception as exception:

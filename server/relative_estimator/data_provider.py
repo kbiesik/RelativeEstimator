@@ -44,6 +44,7 @@ class DataProvider:
                     'description': self.__clear_field(issue.renderedFields.description),
                     'sp':  float(issue.fields.customfield_10002),
                     'time': float(issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0)/3600,
+                    'sp_time_parity': int((issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0)/3600 * 0.3),
                     'labels': issue.fields.labels,
                     'resolutiondate': issue.fields.resolutiondate
                 }
