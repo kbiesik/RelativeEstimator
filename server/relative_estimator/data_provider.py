@@ -38,13 +38,16 @@ class DataProvider:
         my_issues = []
         for issue in jira_issues:
             if len(issue.fields.customfield_10800) == 1:
+                if issue.fields.resolutiondate < '2022-03-31 00:00:00':
+                    sp = int((issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0)/3600 * 0.24)
+                else:
+                    sp = float(issue.fields.customfield_10002)
                 my_issue = {
                     'key': issue.key,
                     'summary': self.__clear_field(issue.fields.summary),
                     'description': self.__clear_field(issue.renderedFields.description),
-                    'sp':  float(issue.fields.customfield_10002),
+                    'sp':  sp,
                     'time': float(issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0)/3600,
-                    'sp_time_parity': int((issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0)/3600 * 0.3),
                     'labels': issue.fields.labels,
                     'resolutiondate': issue.fields.resolutiondate
                 }

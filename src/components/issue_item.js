@@ -19,9 +19,6 @@ class IssueItem extends React.Component{
                 </span>:
                 <span className="sPField">
                     {this.props.sp}
-                </span>:
-                <span className="sPField">
-                    {this.props.sp_time_parity}
                 </span>
                 <span>{this.props.estimate}</span>
             </div>
