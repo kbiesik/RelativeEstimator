@@ -37,7 +37,7 @@ class DataProvider:
 
         my_issues = []
         for issue in jira_issues:
-            if len(issue.fields.customfield_10800) == 1:
+            if issue.fields and issue.fields.customfield_10800 and len(issue.fields.customfield_10800) == 1:
                 if issue.fields.resolutiondate < '2022-03-31 00:00:00':
                     sp = int((issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0)/3600 * 0.24)
                 else:
@@ -55,12 +55,13 @@ class DataProvider:
         return my_issues
 
     def __build_query(self):
-        jql_arr = ["sprint in closedSprints()",
-                   "Sprint not in openSprints()",
+        jql_arr = [
+            # "sprint in closedSprints()",
+                   # "Sprint not in openSprints()",
                    "\"Story Points\"  is not EMPTY",
                    "status IN (Resolved, Closed)",
                    "project IN (%s)" % (", ".join(self._projects)),
-                   "resolved > %s" % self._oldest_results
+                   "resolved >= %s" % self._oldest_results
                    ]
         if len(self._exclude_labels):
             jql_arr.append(" (labels not in (%s) OR labels is EMPTY)" % (", ".join(self._exclude_labels)))
