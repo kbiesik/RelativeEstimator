@@ -13,7 +13,7 @@ def aggregate_statistics(issues) -> dict:
             date = datetime.fromisoformat(item['resolutiondate'][:10])
             if oldest > date:
                 oldest = date
-            if newest < date:
+            if newest <= date:
                 newest = date
 
 

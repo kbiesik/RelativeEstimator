@@ -1,3 +1,5 @@
-jira
-aiohttp
-aiohttp_cors
+jira==3.4.1
+aiohttp==3.8.3
+aiohttp_cors==0.7.0
+urllib3==1.26.9
+chardet==5.0.0

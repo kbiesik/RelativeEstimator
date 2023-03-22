@@ -21,7 +21,8 @@ class DetailsDisplay extends React.Component{
             <div id="DetailsDisplay">
                     <h2>{ this.props.issue.summary } ({this.props.issue.key})</h2>
                     <ul>
-                    <li>Story points: { this.props.issue.sp?this.props.issue.sp:"N/A" }</li>
+                        <li>Active sprints: { this.props.issue.no_of_active_sprints?this.props.issue.no_of_active_sprints:"N/A" }</li>
+                        <li>Story points: { this.props.issue.sp?this.props.issue.sp:"N/A" }</li>
                     <li>Time: { time }</li>
                         <li>SP/h: {sptime}</li>
                     </ul>

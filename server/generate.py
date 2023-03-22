@@ -25,10 +25,13 @@ if __name__ == '__main__':
 
     data_provider = DataProvider(dict(config['FILTERS']), jira_connection)
 
-    issues = data_provider.get_issues()
+    issues, sprints = data_provider.get_issues()
 
     file_writer = JSONWriter(dict(config['OUTPUT']))
     file_writer.write_to_file(issues)
+
+    # file_writer = JSONWriter(dict(config['OUTPUT_SPRINTS']))
+    # file_writer.write_to_file(sprints)
 
     stats = aggregate_statistics(issues)
 
