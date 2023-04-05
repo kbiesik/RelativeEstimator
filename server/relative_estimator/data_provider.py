@@ -43,11 +43,9 @@ class DataProvider:
             if (issue.fields and issue.fields.customfield_10800 and len(issue.fields.customfield_10800) <= 2) \
                      or (issue.fields and not issue.fields.customfield_10800):
                 if issue.fields.customfield_10800 and len(issue.fields.customfield_10800) == 1 and issue.fields.aggregatetimespent:
-                    # for sprint in issue.fields.customfield_10800:
                     sprint_name = re.findall(r"name=([^,(]*)", str(issue.fields.customfield_10800[0]))[0]
-                    # print(issue.fields.summary)
-                    # print(issue.fields.aggregatetimespent)
-                    # print(issue.fields.customfield_10002)
+                    if 'ICE' not in sprint_name:  # due to common reporting code between ICE and FIRE
+                        continue
                     if sprint_name in sprints:
                         sprints[sprint_name]['time_spent'] = issue.fields.aggregatetimespent + sprints[sprint_name]['time_spent']
                         sprints[sprint_name]['sp'] = issue.fields.customfield_10002 + sprints[sprint_name]['sp']
@@ -72,7 +70,7 @@ class DataProvider:
                 my_issues.append(my_issue)
         for sprint_name, sprint in sprints.items():
             sprint['sph'] = round(sprint['sp']/sprint['time_spent']*3600, 3)
-            print(f'{sprint_name}: {sprint}')
+            print(f'{sprint_name}: {round(sprint["time_spent"]/3600)} h; {sprint}')
             sprints[sprint_name] = sprint
         median_velocity = round(statistics.median([sprint['sph'] for sprint in sprints.values()][:6]), 3)
         print(sprints)
