@@ -25,6 +25,7 @@ class DataProvider:
         self._exclude_labels = json.loads(self.__config['exclusion_labels'])
         self._oldest_results = self.__config['oldest_results']
         self._max_results = int(self.__config['max_results'])
+        self._sprint_team_name = self.__config['sprint_team_name']
 
     def get_issues(self):
         jql = self.__build_query()
@@ -40,12 +41,15 @@ class DataProvider:
         my_issues = []
         sprints = {}
         for issue in jira_issues:
+            try:
+                sprint_name = re.findall(r"name=([^,(]*)", str(issue.fields.customfield_10800[0]))[0]
+                if self._sprint_team_name not in sprint_name:  # due to common reporting code between ICE and FIRE
+                    continue
+            except Exception:
+                pass
             if (issue.fields and issue.fields.customfield_10800 and len(issue.fields.customfield_10800) <= 2) \
                      or (issue.fields and not issue.fields.customfield_10800):
                 if issue.fields.customfield_10800 and len(issue.fields.customfield_10800) == 1 and issue.fields.aggregatetimespent:
-                    sprint_name = re.findall(r"name=([^,(]*)", str(issue.fields.customfield_10800[0]))[0]
-                    if 'ICE' not in sprint_name:  # due to common reporting code between ICE and FIRE
-                        continue
                     if sprint_name in sprints:
                         sprints[sprint_name]['time_spent'] = issue.fields.aggregatetimespent + sprints[sprint_name]['time_spent']
                         sprints[sprint_name]['sp'] = issue.fields.customfield_10002 + sprints[sprint_name]['sp']

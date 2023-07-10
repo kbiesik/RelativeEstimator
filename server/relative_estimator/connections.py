@@ -24,16 +24,18 @@ class JiraConnectionGenerator:
     def __create_connection(self, configuration):
         try:
             conf = {
-                "server": configuration["JIRA"]["host"]
+                "server": configuration["JIRA"]["host"],
+                "verify": False
 
             }
             jira_connection = JIRA(conf,
+                                   # options={"verify": False},
                                    basic_auth=(configuration["JIRA"]["user"],
                                                configuration["JIRA"]["pass"]))
             self.__logger.debug(jira_connection)
             self.__logger.debug("...OK")
         except Exception as exception:
-            self.__logger.error("Failed: %s", repr(exception))
+            self.__logger.error("Failed: %s", repr(exception), exc_info=True)
             raise JiraREConnectionException(repr(exception))
 
         return jira_connection
