@@ -47,7 +47,7 @@ class DataProvider:
                     continue
             except Exception:
                 pass
-            if (issue.fields and issue.fields.customfield_10800 and len(issue.fields.customfield_10800) <= 2) \
+            if (issue.fields and issue.fields.customfield_10800) \
                      or (issue.fields and not issue.fields.customfield_10800):
                 if issue.fields.customfield_10800 and len(issue.fields.customfield_10800) == 1 and issue.fields.aggregatetimespent:
                     if sprint_name in sprints:
@@ -82,8 +82,9 @@ class DataProvider:
         my_final_issues = []
 
         for issue in my_issues:
+            issue['calc_sp'] = round(issue['time'] * median_velocity, 1)
             if issue['no_of_active_sprints'] > 1:
-                issue['sp'] = round(issue['time'] * median_velocity,1)
+                issue['sp'] = issue['calc_sp']
             my_final_issues.append(issue)
 
         return my_final_issues, sprints

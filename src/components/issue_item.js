@@ -20,6 +20,12 @@ class IssueItem extends React.Component{
                 <span className="sPField">
                     {this.props.sp}
                 </span>
+                <span className="calcSpField">
+                    {this.props.calc_sp}
+                </span>
+                <span className="no_of_sprints">
+                    {this.props.no_of_active_sprints}
+                </span>
                 <span>{this.props.estimate}</span>
             </div>
         );

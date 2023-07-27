@@ -29,6 +29,7 @@ class ItemsList extends React.Component {
                                 issueKey={entity.key}
                                 summary={entity.summary}
                                 no_of_active_sprints={entity.no_of_active_sprints}
+                                calc_sp={entity.calc_sp}
                                 sp={entity.sp}
                                 description={entity.description}
                                 onSelect={this.props.onSelect}
