@@ -14,7 +14,7 @@ class ItemsList extends React.Component {
         } else {
             let items_list = this.props.entities.slice();
             items_list.sort(function(a,b){
-                return a.sp - b.sp;
+                return a.calc_sp - b.calc_sp;
             });
 
             return (
@@ -30,6 +30,7 @@ class ItemsList extends React.Component {
                                 summary={entity.summary}
                                 no_of_active_sprints={entity.no_of_active_sprints}
                                 calc_sp={entity.calc_sp}
+                                sph={entity.sph}
                                 sp={entity.sp}
                                 description={entity.description}
                                 onSelect={this.props.onSelect}

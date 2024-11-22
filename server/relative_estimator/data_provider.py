@@ -41,17 +41,23 @@ class DataProvider:
         my_issues = []
         sprints = {}
         for issue in jira_issues:
+            team_name = None
+            sprint_name = None
             try:
                 sprint_name = re.findall(r"name=([^,(]*)", str(issue.fields.customfield_10800[0]))[0]
+                team_name = sprint_name.split(' ')[0]
                 if self._sprint_team_name not in sprint_name:  # due to common reporting code between ICE and FIRE
                     continue
             except Exception:
                 pass
+
             if (issue.fields and issue.fields.customfield_10800) \
-                     or (issue.fields and not issue.fields.customfield_10800):
-                if issue.fields.customfield_10800 and len(issue.fields.customfield_10800) == 1 and issue.fields.aggregatetimespent:
+                    or (issue.fields and not issue.fields.customfield_10800) and sprint_name and team_name in sprint_name:
+                if issue.fields.customfield_10800 and len(
+                        issue.fields.customfield_10800) == 1 and issue.fields.aggregatetimespent:
                     if sprint_name in sprints:
-                        sprints[sprint_name]['time_spent'] = issue.fields.aggregatetimespent + sprints[sprint_name]['time_spent']
+                        sprints[sprint_name]['time_spent'] = issue.fields.aggregatetimespent + sprints[sprint_name][
+                            'time_spent']
                         sprints[sprint_name]['sp'] = issue.fields.customfield_10002 + sprints[sprint_name]['sp']
                     else:
                         sprints[sprint_name] = {'time_spent': issue.fields.aggregatetimespent,
@@ -61,20 +67,27 @@ class DataProvider:
                     sp = int((issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0) / 3600 * 0.24)
                 else:
                     sp = float(issue.fields.customfield_10002)
+                no_of_active_sprints = len(
+                    issue.fields.customfield_10800) if issue.fields.customfield_10800 else 0
                 my_issue = {
-                    'no_of_active_sprints': len(issue.fields.customfield_10800) if issue.fields.customfield_10800 else 0,
+                    'no_of_active_sprints': len(
+                        issue.fields.customfield_10800) if issue.fields.customfield_10800 else 0,
                     'key': issue.key,
                     'summary': self.__clear_field(issue.fields.summary),
                     'description': self.__clear_field(issue.renderedFields.description),
                     'sp': sp,
+                    'sph': sp / (float(
+                        issue.fields.aggregatetimespent ) / 3600) if issue.fields.aggregatetimespent and no_of_active_sprints == 1 else -1,
                     'time': float(issue.fields.aggregatetimespent if issue.fields.aggregatetimespent else 0) / 3600,
-                    'labels': issue.fields.labels,
+                    'labels': [team_name] + issue.fields.labels,
                     'resolutiondate': issue.fields.resolutiondate
                 }
+                print(
+                    f"{my_issue['sph']}\t {my_issue['sp']}\t {my_issue['time']}\t {my_issue['sp'] / (my_issue['time'] + 1)}")
                 my_issues.append(my_issue)
         for sprint_name, sprint in sprints.items():
-            sprint['sph'] = round(sprint['sp']/sprint['time_spent']*3600, 3)
-            print(f'{sprint_name}: {round(sprint["time_spent"]/3600)} h; {sprint}')
+            sprint['sph'] = round(sprint['sp'] / sprint['time_spent'] * 3600, 3)
+            print(f'{sprint_name}: {round(sprint["time_spent"] / 3600)} h; {sprint}')
             sprints[sprint_name] = sprint
         median_velocity = round(statistics.median([sprint['sph'] for sprint in sprints.values()][:6]), 3)
         print(sprints)
@@ -82,9 +95,9 @@ class DataProvider:
         my_final_issues = []
 
         for issue in my_issues:
-            issue['calc_sp'] = round(issue['time'] * median_velocity, 1)
-            if issue['no_of_active_sprints'] > 1:
-                issue['sp'] = issue['calc_sp']
+            issue['calc_sp'] = round(issue['time'] * 0.1)
+            if issue['no_of_active_sprints'] != 1:
+                issue['sp'] = -1
             my_final_issues.append(issue)
 
         return my_final_issues, sprints
@@ -105,3 +118,11 @@ class DataProvider:
 
     def __clear_field(self, val):
         return val.replace('\r', '').replace('\n', '').replace('"', '')
+
+    # @staticmethod
+    # def round(value, precision=1):
+    #     print(f"in: {value}")
+    #     value = value * (10 ** precision)
+    #     value = round(value, precision)
+    #     print(f"out: {value / (10 ** precision)}")
+    #     return value / (10 ** precision)
